@@ -1,0 +1,282 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SHOCKED</title>
+    <!-- Shocked Emoji Favicon -->
+    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>😱</text></svg>">
+    
+    <!-- Premium Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;600;900&display=swap" rel="stylesheet">
+    
+    <style>
+        :root {
+            --bg-color: #050508;
+            --card-bg: rgba(15, 15, 25, 0.6);
+            --border-color: rgba(255, 255, 255, 0.08);
+            --glow-color: #ff3366;
+            --text-color: #f3f4f6;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            background-color: var(--bg-color);
+            font-family: 'Outfit', sans-serif;
+            color: var(--text-color);
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+            position: relative;
+            background-image: 
+                radial-gradient(circle at 10% 20%, rgba(255, 51, 102, 0.05) 0%, transparent 40%),
+                radial-gradient(circle at 90% 80%, rgba(51, 153, 255, 0.05) 0%, transparent 40%);
+        }
+
+        /* Ambient grid pattern background */
+        body::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: linear-gradient(rgba(255, 255, 255, 0.01) 1px, transparent 1px),
+                              linear-gradient(90deg, rgba(255, 255, 255, 0.01) 1px, transparent 1px);
+            background-size: 30px 30px;
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        .container {
+            z-index: 1;
+            width: 100%;
+            max-width: 600px;
+            padding: 20px;
+            text-align: center;
+        }
+
+        .card {
+            background: var(--card-bg);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border: 1px solid var(--border-color);
+            border-radius: 24px;
+            padding: 30px;
+            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.5);
+            transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275), box-shadow 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 30px 60px rgba(255, 51, 102, 0.15);
+            border-color: rgba(255, 51, 102, 0.3);
+        }
+
+        .title-glow {
+            font-size: 2.2rem;
+            font-weight: 900;
+            text-transform: uppercase;
+            letter-spacing: -1px;
+            margin-bottom: 25px;
+            background: linear-gradient(45deg, #ff3366, #ff9933, #33ccff);
+            background-size: 200% auto;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            animation: textShine 4s linear infinite;
+        }
+
+        .image-container {
+            width: 100%;
+            border-radius: 16px;
+            overflow: hidden;
+            border: 2px solid rgba(255, 255, 255, 0.05);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+            position: relative;
+            cursor: pointer;
+            user-select: none;
+        }
+
+        .image-container img {
+            width: 100%;
+            height: auto;
+            display: block;
+            transition: transform 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+
+        .image-container:hover img {
+            transform: scale(1.05);
+        }
+
+        /* Dramatic hover glow overlay */
+        .image-container::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            box-shadow: inset 0 0 40px rgba(255, 51, 102, 0);
+            transition: box-shadow 0.3s ease;
+            pointer-events: none;
+        }
+
+        .image-container:hover::after {
+            box-shadow: inset 0 0 40px rgba(255, 51, 102, 0.3);
+        }
+
+        .hint {
+            margin-top: 15px;
+            font-size: 0.85rem;
+            color: #64748b;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            animation: pulse 2s infinite;
+        }
+
+        /* Animations */
+        @keyframes textShine {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        @keyframes pulse {
+            0%, 100% { opacity: 0.5; }
+            50% { opacity: 1; }
+        }
+
+        /* Shake effect */
+        .shake {
+            animation: shake 0.5s cubic-bezier(.36,.07,.19,.97) both;
+            transform: translate3d(0, 0, 0);
+            backface-visibility: hidden;
+            perspective: 1000px;
+        }
+
+        @keyframes shake {
+            10%, 90% { transform: translate3d(-2px, 0, 0) rotate(-1deg); }
+            20%, 80% { transform: translate3d(4px, 0, 0) rotate(1.5deg); }
+            30%, 50%, 70% { transform: translate3d(-6px, 0, 0) rotate(-2deg); }
+            40%, 60% { transform: translate3d(6px, 0, 0) rotate(2deg); }
+        }
+
+        /* Floating Emojis */
+        .emoji-particle {
+            position: absolute;
+            font-size: 2.5rem;
+            pointer-events: none;
+            z-index: 100;
+            animation: floatUp 1s cubic-bezier(0.25, 1, 0.5, 1) forwards;
+        }
+
+        @keyframes floatUp {
+            0% {
+                transform: translate(-50%, -50%) scale(0.5);
+                opacity: 1;
+            }
+            100% {
+                transform: translate(-50%, -250%) scale(1.5) rotate(var(--rotation));
+                opacity: 0;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="card" id="card">
+            <h1 class="title-glow">ME WHEN I SEE SHAMIR!!!</h1>
+            <div class="image-container" id="trollImageContainer">
+                <img src="image.png" alt="Shocked Face" id="trollImage">
+            </div>
+            <p class="hint">Click the image to react</p>
+        </div>
+    </div>
+
+    <script>
+        const card = document.getElementById('card');
+        const imgContainer = document.getElementById('trollImageContainer');
+
+        imgContainer.addEventListener('click', (e) => {
+            // 1. Shake card
+            card.classList.remove('shake');
+            void card.offsetWidth; // Trigger reflow
+            card.classList.add('shake');
+            setTimeout(() => card.classList.remove('shake'), 500);
+
+            // 2. Play funny Beep Synth sound
+            playBeep();
+
+            // 3. Spawn floating shocked emojis
+            const rect = e.currentTarget.getBoundingClientRect();
+            const clickX = e.clientX;
+            const clickY = e.clientY;
+
+            for (let i = 0; i < 6; i++) {
+                createEmojiParticle(clickX, clickY);
+            }
+        });
+
+        // Web Audio API funny alert synth
+        function playBeep() {
+            try {
+                const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+                
+                // Primary high pitch oscillator
+                const osc = audioCtx.createOscillator();
+                const gain = audioCtx.createGain();
+                
+                osc.type = 'sawtooth';
+                osc.frequency.setValueAtTime(880, audioCtx.currentTime); // A5
+                osc.frequency.exponentialRampToValueAtTime(110, audioCtx.currentTime + 0.35); // Downward slide
+                
+                gain.gain.setValueAtTime(0.15, audioCtx.currentTime);
+                gain.gain.exponentialRampToValueAtTime(0.01, audioCtx.currentTime + 0.35);
+                
+                osc.connect(gain);
+                gain.connect(audioCtx.destination);
+                
+                osc.start();
+                osc.stop(audioCtx.currentTime + 0.4);
+            } catch (err) {
+                console.log('Audio Context not supported or blocked by browser');
+            }
+        }
+
+        function createEmojiParticle(x, y) {
+            const emoji = document.createElement('div');
+            emoji.className = 'emoji-particle';
+            emoji.innerText = '😱';
+            
+            // Random offset spread
+            const offsetX = (Math.random() - 0.5) * 80;
+            const offsetY = (Math.random() - 0.5) * 60;
+            
+            emoji.style.left = `${x + offsetX}px`;
+            emoji.style.top = `${y + offsetY}px`;
+            
+            // Random rotation for CSS var
+            const rotation = `${(Math.random() - 0.5) * 120}deg`;
+            emoji.style.setProperty('--rotation', rotation);
+
+            document.body.appendChild(emoji);
+
+            // Clean up
+            setTimeout(() => {
+                emoji.remove();
+            }, 1000);
+        }
+    </script>
+</body>
+</html>
